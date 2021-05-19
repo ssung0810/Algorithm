@@ -10,6 +10,7 @@ import java.util.StringTokenizer;
  */
 public class BJoon12865 {
 	static int[][] bag;
+	static int[] arr;
 	static int best;
 
 	public static void main(String[] args) throws Exception {
@@ -19,6 +20,7 @@ public class BJoon12865 {
 		int N = Integer.parseInt(st.nextToken());
 		int max = Integer.parseInt(st.nextToken());
 		bag = new int[N][2];
+		arr = new int[400000];
 		
 		for(int i=0; i<N; i++) {
 			st = new StringTokenizer(bf.readLine());
@@ -37,11 +39,16 @@ public class BJoon12865 {
 		}
 		
 		for(int i=s; i<N; i++) {
-//			System.out.println(i + " :: " + w_sum + " :: " + v_sum + " :: " + d + " :: " + N + " :: " + max);
 			if(w_sum+bag[i][0] <= max) {
 				best = Math.max(best, v_sum+bag[i][1]);
 				
-				BestValue(s+1, w_sum += bag[i][0], v_sum += bag[i][1], d+1, N, max);
+				if(arr[w_sum += bag[i][0]] == 0) {
+					arr[w_sum += bag[i][0]] = w_sum += bag[i][0];
+					BestValue(s+1, w_sum += bag[i][0], v_sum += bag[i][1], d+1, N, max);
+				} else {
+					
+				}
+				
 				w_sum -= bag[i][0];
 				v_sum -= bag[i][1];
 			}

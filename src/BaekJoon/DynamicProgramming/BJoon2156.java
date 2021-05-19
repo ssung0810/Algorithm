@@ -4,44 +4,32 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
 public class BJoon2156 {
-	static int N, wine[], max=0;
-	static boolean visit[];
+	static int[] wine;
+	static Integer arr[];
 
 	public static void main(String[] args) throws Exception {
 		BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
 		
-		N = Integer.parseInt(bf.readLine());
+		int N = Integer.parseInt(bf.readLine());
+		wine = new int[N+1];
+		arr = new Integer[N+1];
 		
-		wine = new int[N];
-		visit = new boolean[N];
-		
-		for(int i=0; i<N; i++) {
+		for(int i=1; i<=N; i++) {
 			wine[i] = Integer.parseInt(bf.readLine());
 		}
 		
-		manyEats(1, 0, 0);
+		arr[0] = 0;
+		arr[1] = wine[1];
+		if(N > 1) arr[2] = wine[1] + wine[2];
 		
-		System.out.println(max);
+		System.out.println(Math.max(sum(N), sum(N-1)));
 	}
 
-	public static void manyEats(int cnt, int sum, int start) {
-		int c = cnt;
-		
-		for(int i=start; i<N; i++) {
-			int s = sum;
-			
-			if(c == 3) {
-				c = 1;
-				continue;
-			}
-			
-			s += wine[i];
-			c++;
-			manyEats(c, s, i+1);
-			
-			c = 1;
+	static int sum(int N) {
+		if(arr[N] == null) {
+			arr[N] = Math.max(sum(N-2), sum(N-3) + wine[N-1]) + wine[N];
 		}
 		
-		if(max < sum) max = sum;
+		return arr[N];
 	}
 }
