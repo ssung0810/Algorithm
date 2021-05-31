@@ -1,4 +1,4 @@
-package BackTracking;
+package BaekJoon.BackTracking;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
