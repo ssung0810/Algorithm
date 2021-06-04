@@ -1,42 +1,37 @@
 package BaekJoon;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Arrays;
+import java.util.StringTokenizer;
 
+/* A + B - 4
+ * Created by qkrtjdcjf124
+ * Date : 2021/06/04
+ */
 public class Main {
-	static int[] dp;
-
-	public static void main(String[] args) throws Exception {
+	public static void main(String[] args) throws IOException {
 		BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
 		StringBuilder sb = new StringBuilder();
+		StringTokenizer st = new StringTokenizer(bf.readLine());
 		
-		int N = Integer.parseInt(bf.readLine());
-		dp = new int[41];
-		Arrays.fill(dp, -1);
-		dp[0] = 0;
-		dp[1] = 1;
+		int a, b;
 		
-		for(int i=0; i<N; i++) {
-			int num = Integer.parseInt(bf.readLine());
-			
-			if(num == 0) {
-				sb.append(1 + " " + 0 + "\n");
-			} else if(num == 1) {
-				sb.append(0 + " " + 1 + "\n");
-			} else {
-				sb.append(fibonacci(num-1) + " " + fibonacci(num) + "\n");
-			}
+		for(int i=0; i<6; i++) {
+			String txt = bf.readLine();
+			if(txt.equals("")) System.out.println(1);
+			else System.out.println(2);
 		}
 		
-		System.out.println(sb);
-	}
-
-	public static int fibonacci(int n) {
-		if(dp[n] == -1) {
-			dp[n] = fibonacci(n-1) + fibonacci(n-2);
-		}
+//		while(st.hasMoreTokens()) {
+//			a = Integer.parseInt(st.nextToken());
+//			b = Integer.parseInt(st.nextToken());
+//			
+//			sb.append(a + b + "\n");
+//			
+//			st = new StringTokenizer(bf.readLine());
+//		}
 		
-		return dp[n];
+//		System.out.println(sb);
 	}
 }
