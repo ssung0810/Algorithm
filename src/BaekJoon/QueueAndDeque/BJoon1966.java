@@ -33,7 +33,7 @@ public class BJoon1966 {
 					q.offer(Integer.parseInt(st.nextToken()));
 				}
 			}
-		}
+		} 
 	}
 
 }
