@@ -7,7 +7,7 @@ import java.util.StringTokenizer;
 
 /* 나무 자르기
  * Created by qkrtjdcjt124
- * Date : 2021/06/23
+ * Date : 2021/06/25
  */
 public class BJoon2805 {
 
@@ -18,8 +18,8 @@ public class BJoon2805 {
 		int N = Integer.parseInt(st.nextToken());
 		int M = Integer.parseInt(st.nextToken());
 		int[] tree = new int[N];
-		int start=0, mid, end=0;
-		int sum;
+		int start=0, mid=0, end=0;
+		long sum=0;
 		
 		st = new StringTokenizer(bf.readLine());
 		for(int i=0; i<N; i++) {
@@ -27,24 +27,22 @@ public class BJoon2805 {
 			end = Math.max(end, tree[i]);
 		}
 		
-		while(start <= end) {
+		while(sum != M) {
 			sum = 0;
 			mid = (start+end)/2;
 			
 			for(int i=0; i<N; i++) {
-				sum = (tree[i]-mid) < 0 ? 0 : tree[i]-mid;
+				if(tree[i] > mid) sum += tree[i] - mid;
 			}
 			
-			System.out.println(sum);
-			
-			if(sum <= M) {
-				start = mid + 1;
-			} else {
+			if(sum < M) {
 				end = mid - 1;
+			} else {
+				start = mid + 1;
 			}
 		}
 		
-		System.out.println(end);
+		System.out.println(mid);
 	}
 
 }
