@@ -1,37 +1,53 @@
 package BaekJoon;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.StringTokenizer;
+import java.util.Arrays;
 
 /* A + B - 4
  * Created by qkrtjdcjf124
  * Date : 2021/06/04
  */
 public class Main {
+	static int[] A = {1,2,3,4,5};
+    static int[] B = {2,1,2,3,2,4,2,5};
+    static int[] C = {3, 3, 1, 1, 2, 2, 4, 4, 5, 5};
+    static int[] result = new int[3];
+    
 	public static void main(String[] args) throws IOException {
-		BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
 		StringBuilder sb = new StringBuilder();
-		StringTokenizer st = new StringTokenizer(bf.readLine());
 		
-		int a, b;
-		
-		for(int i=0; i<6; i++) {
-			String txt = bf.readLine();
-			if(txt.equals("")) System.out.println(1);
-			else System.out.println(2);
+		int[] answers = {1,2,3,4,5};
+		int max = 0;
+		for(int i=0; i<answers.length; i++) {
+            int solve = answers[i];
+            
+            if(A[i%5] == solve) result[0]++;
+            if(B[i%8] == solve) result[1]++;
+            if(C[i%10] == solve) result[2]++;
+        }
+        
+		for(int i=0; i<3; i++) {
+			max = Math.max(max, result[i]);
 		}
 		
-//		while(st.hasMoreTokens()) {
-//			a = Integer.parseInt(st.nextToken());
-//			b = Integer.parseInt(st.nextToken());
-//			
-//			sb.append(a + b + "\n");
-//			
-//			st = new StringTokenizer(bf.readLine());
-//		}
+		int cnt = 0;
+		for(int i=0; i<3; i++) {
+			if(result[i] == max) {
+				cnt++;
+			}
+		}
+        
+        int[] answer = new int[cnt];
+        
+        cnt = 0;
+        for(int i=0; i<3; i++) {
+        	if(result[i] == max) {
+        		answer[cnt] = i+1;
+                cnt++;
+			}
+        }
 		
-//		System.out.println(sb);
+        System.out.println(Arrays.toString(answer));
 	}
+	
 }
