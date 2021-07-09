@@ -1,53 +1,88 @@
 package BaekJoon;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Arrays;
+import java.util.StringTokenizer;
 
 /* A + B - 4
  * Created by qkrtjdcjf124
  * Date : 2021/06/04
  */
 public class Main {
-	static int[] A = {1,2,3,4,5};
-    static int[] B = {2,1,2,3,2,4,2,5};
-    static int[] C = {3, 3, 1, 1, 2, 2, 4, 4, 5, 5};
-    static int[] result = new int[3];
     
 	public static void main(String[] args) throws IOException {
-		StringBuilder sb = new StringBuilder();
+		BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st = new StringTokenizer(bf.readLine());
 		
-		int[] answers = {1,2,3,4,5};
-		int max = 0;
-		for(int i=0; i<answers.length; i++) {
-            int solve = answers[i];
-            
-            if(A[i%5] == solve) result[0]++;
-            if(B[i%8] == solve) result[1]++;
-            if(C[i%10] == solve) result[2]++;
-        }
-        
-		for(int i=0; i<3; i++) {
-			max = Math.max(max, result[i]);
+		String a = st.nextToken();
+		String b = st.nextToken();
+		int[] arr_a = new int[a.length()];
+		int[] arr_b = new int[b.length()];
+		int[] result = new int[Math.max(a.length(), b.length())];
+		int up = 0;
+		
+		for(int i=0; i<a.length(); i++) {
+			arr_a[i] = a.charAt(i)-'0';
 		}
 		
-		int cnt = 0;
-		for(int i=0; i<3; i++) {
-			if(result[i] == max) {
-				cnt++;
-			}
+		for(int i=0; i<b.length(); i++) {
+			arr_b[i] = b.charAt(i)-'0';
 		}
-        
-        int[] answer = new int[cnt];
-        
-        cnt = 0;
-        for(int i=0; i<3; i++) {
-        	if(result[i] == max) {
-        		answer[cnt] = i+1;
-                cnt++;
-			}
-        }
 		
-        System.out.println(Arrays.toString(answer));
+		for(int i=a.length()-1, j=b.length()-1, r=result.length-1; i>=0 && j>=0; i--, j--, r--) {
+			int sum = arr_a[i] + arr_b[j] + result[r];
+			
+			// 마지막 숫자의 합계 정하기
+			result[r] = (sum) % 10;
+			
+			// 합이 10이상이면 앞에 1추가하기
+			if(sum > 9) {
+				up = 1;
+				if(i != 0) result[r-1]++;
+			} else up = 0;
+		}
+		
+		if(arr_a.length > arr_b.length) {
+			for(int i=arr_a.length-arr_b.length-1; i>=0; i--) {
+				int sum = arr_a[i] + result[i];
+				
+				// 마지막 숫자의 합계 정하기
+				result[i] = (sum) % 10;
+				
+				// 합이 10이상이면 앞에 1추가하기
+				if(sum > 9) {
+					up = 1;
+					if(i != 0) result[i-1]++;
+				} else up = 0;
+			}
+		} else if(arr_a.length < arr_b.length) {
+			for(int i=arr_b.length-arr_a.length-1; i>=0; i--) {
+				int sum = arr_b[i] + result[i];
+				
+				// 마지막 숫자의 합계 정하기
+				result[i] = (sum) % 10;
+				
+				// 합이 10이상이면 앞에 1추가하기
+				if(sum > 9) {
+					up = 1;
+					if(i != 0) result[i-1]++;
+				} else up = 0;
+			}
+		} 
+		
+		String txt = "";
+		for(int i=0; i<result.length; i++) {
+			txt += result[i];
+		}
+		
+		if(up == 1) {
+			System.out.println("1"+txt);
+		} else {
+			System.out.println(txt);
+		}
+		
 	}
 	
 }
