@@ -7,7 +7,7 @@ import java.util.StringTokenizer;
 
 /* 곱셈
  * Created by qkrtjdcjf124
- * Date : 2021/06/22
+ * Date : 2021/07/12
  */
 public class Bjoon1629 {
 
@@ -19,7 +19,25 @@ public class Bjoon1629 {
 		int b = Integer.parseInt(st.nextToken());
 		int c = Integer.parseInt(st.nextToken());
 		
-		System.out.println(Math.pow(a, b)%c);
+		System.out.println(pow(a, b, c));
+		
 	}
 
+	static long pow(long a, long b, long c) {
+		if(b == 1) {
+			return a;
+		}
+		
+//		long temp = pow(a, b/2);
+//		
+//		if(b % 2 == 1) {
+//			return temp * temp * a;
+//		}
+//		
+//		return temp * temp;
+		
+//		long z = ;
+//		System.out.println(z + " :: " + Math.pow(a, b%2) + " :: " + a + " :: " + b);
+		return (long) (Math.pow(pow(a, b/2, c), 2) * Math.pow(a, b%2));
+	}
 }
