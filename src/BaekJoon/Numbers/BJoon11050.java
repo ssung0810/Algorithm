@@ -9,7 +9,7 @@ import java.util.StringTokenizer;
  * Date : 2021/06/07
  */
 public class BJoon11050 {
-	static Integer[] dp;
+	static Integer[][] dp;
 
 	public static void main(String[] args) throws Exception {
 		BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
@@ -17,23 +17,18 @@ public class BJoon11050 {
 		
 		int n = Integer.parseInt(st.nextToken());
 		int r = Integer.parseInt(st.nextToken());
-		dp = new Integer[n+1];
+		dp = new Integer[n+1][r+1];
 
-		dp[0] = 1;
-		dp[1] = 1;
-		dp[2] = 2;
-		
-		System.out.println(Fac(n) / (Fac(n-r)*Fac(r)) );
-		System.out.println(Fac(5));
+		System.out.println(Fac(n, r));
 	}
 
-	static int Fac(int N) {
-		if(N < 0) return 1;
+	static int Fac(int n, int r) {
+		if(n == r || r == 0) return 1;
 		
-		if(dp[N] == null) {
-			dp[N] = N * Fac(N-1);
+		if(dp[n][r] == null) {
+			dp[n][r] = Fac(n-1, r) + Fac(n-1, r-1);
 		}
 		
-		return dp[N];
+		return dp[n][r];
 	}
 }
