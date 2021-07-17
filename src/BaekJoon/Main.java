@@ -3,51 +3,47 @@ package BaekJoon;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.StringTokenizer;
 
 public class Main {
-	static int[][] stair;
-	static Integer[][] dp;
-	static int N;
     
 	public static void main(String[] args) throws IOException {
 		BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
 		StringTokenizer st;
 		
-		N = Integer.parseInt(bf.readLine());
-		stair = new int[N][N];
-		dp = new Integer[N][N];
+		int N = Integer.parseInt(bf.readLine());
+		int[][] meeting = new int[N][2];
 		
 		for(int i=0; i<N; i++) {
 			st = new StringTokenizer(bf.readLine());
-			int cnt = 0;
-			while(st.hasMoreTokens()) {
-				stair[i][cnt] = Integer.parseInt(st.nextToken());
+			
+			meeting[i][0] = Integer.parseInt(st.nextToken());
+			meeting[i][1] = Integer.parseInt(st.nextToken());
+		}
+		
+		Arrays.sort(meeting, new Comparator<int[]>() {
+			@Override
+			public int compare(int[] e1, int[] e2) {
+				if(e1[1] == e2[1]) {
+					return e1[0] - e1[1];
+				}
+				
+				return e1[1] - e2[1];
+			}
+		});
+		
+		int cnt = 1;
+		int endTime = meeting[0][1];
+		for(int i=1; i<N; i++) {
+			if(meeting[i][0] >= endTime) {
 				cnt++;
+				endTime = meeting[i][1];
 			}
 		}
 		
-		dp[0][0] = stair[0][0];
-		int max = 0;
-		
-		for(int i=0; i<N; i++) {
-			max = Math.max(max, maximum(N-1, i));
-		}
-		
-		System.out.println(max);
+		System.out.println(cnt);
 	}
 	
-	static int maximum(int row, int col) {
-		if(dp[row][col] == null) {
-			if(col == 0) {
-				dp[row][col] = stair[row][col] + maximum(row-1, col);
-			} else if(row == col) {
-				dp[row][col] = stair[row][col] + maximum(row-1, col-1);
-			} else {
-				dp[row][col] = stair[row][col] + Math.max(maximum(row-1, col-1), maximum(row-1, col));
-			}
-		}
-		
-		return dp[row][col];
-	}
 }
