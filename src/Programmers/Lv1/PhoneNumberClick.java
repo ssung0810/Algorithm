@@ -5,8 +5,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
-import org.omg.Messaging.SyncScopeHelper;
-
 public class PhoneNumberClick {
 
 	public static void main(String[] args) throws IOException {
