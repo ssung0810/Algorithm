@@ -3,33 +3,44 @@ package BaekJoon;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Arrays;
 import java.util.StringTokenizer;
 
 public class Main {
+	static StringBuilder sb = new StringBuilder();
+	static boolean[] visit;
+	static int[] result;
     
 	public static void main(String[] args) throws IOException {
 		BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
-		StringTokenizer st;
+		StringTokenizer st = new StringTokenizer(bf.readLine());
 		
-		int N = Integer.parseInt(bf.readLine());
-		int[] people = new int[N];
+		int N = Integer.parseInt(st.nextToken());
+		int M = Integer.parseInt(st.nextToken());
 		
-		st = new StringTokenizer(bf.readLine());
-		for(int i=0; i<N; i++) {
-			people[i] = Integer.parseInt(st.nextToken());
-		}
+		visit = new boolean[N];
+		result = new int[M];
 		
-		Arrays.sort(people);
+		dfs(N, 0, M, 0);
 		
-		int sum = 0;
-		for(int i=0; i<N; i++) {
-			for(int j=0; j<=i; j++) {
-				sum += people[j];
-			}
-		}
-		
-		System.out.println(sum);
+		System.out.println(sb);
 	}
 	
+	static void dfs(int N, int D, int M, int s) {
+		if(M == D) {
+			for(int i=0; i<M; i++) {
+				sb.append(result[i] + " ");
+			}
+			sb.append("\n");
+			return;
+		}
+		
+		for(int i=s; i<N; i++) {
+//			if(!visit[i]) {
+				result[D] = i+1;
+				visit[i] = true;
+				dfs(N, D+1, M, i);
+				visit[i] = false;
+//			}
+		}
+	}
 }
