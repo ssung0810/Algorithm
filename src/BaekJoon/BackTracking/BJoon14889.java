@@ -51,18 +51,24 @@ public class BJoon14889 {
 		int start_sum = 0;
 		int link_sum = 0;
 		
-		for(int i=0; i<N; i++) {
-			for(int j=0; j<N; j++) {
-				if(visit[i] && visit[j]) {
+		for(int i=0; i<N-1; i++) {
+			for(int j=i+1; j<N; j++) {
+				if(visit[i] == true && visit[j] == true) {
 					start_sum += team[i][j];
 					start_sum += team[j][i];
-				} else if(!visit[i] && !visit[j]) {
+				} else if(visit[i] == false && visit[j] == false) {
 					link_sum += team[i][j];
 					link_sum += team[j][i];
 				}
 			}
 		}
+
+		int result = Math.abs(start_sum - link_sum);
+		if(result == 0) {
+			System.out.println(0);
+			System.exit(0);
+		}
 		
-		min = Math.min(min, Math.abs(start_sum - link_sum));
+		min = Math.min(min, result);
 	}
 }

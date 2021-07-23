@@ -6,12 +6,12 @@ import java.util.StringTokenizer;
 
 /* 평범한 배낭
  * Created by qkrtjdcjf124
- * Date : 2021/05/18
+ * Date : 2021/07/23
  */
 public class BJoon12865 {
 	static int[][] bag;
-	static int[] arr;
-	static int best;
+	static int[] dp;
+	static int best = 0;
 
 	public static void main(String[] args) throws Exception {
 		BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
@@ -20,7 +20,7 @@ public class BJoon12865 {
 		int N = Integer.parseInt(st.nextToken());
 		int max = Integer.parseInt(st.nextToken());
 		bag = new int[N][2];
-		arr = new int[400000];
+		dp = new int[max+1];
 		
 		for(int i=0; i<N; i++) {
 			st = new StringTokenizer(bf.readLine());
@@ -28,31 +28,22 @@ public class BJoon12865 {
 			bag[i][1] = Integer.parseInt(st.nextToken());
 		}
 		
-		BestValue(0, 0, 0, 0, N, max);
+		for(int i=0; i<=max; i++) {
+			BestValue(N, i);
+		}
 		
-		System.out.println(best);
+		System.out.println(dp[max]);
 	}
-
-	public static void BestValue(int s, int w_sum, int v_sum, int d, int N, int max) {
-		if(w_sum > max || d == N) {
-			return;
+	
+	static void BestValue(int N, int max) {
+		for(int i=0; i<N; i++) {
+			if(bag[i][0] <= max) {
+				dp[max] = Math.max(bag[i][1] + dp[max - bag[i][0]], dp[max]);
+			}
 		}
 		
-		for(int i=s; i<N; i++) {
-			if(w_sum+bag[i][0] <= max) {
-				best = Math.max(best, v_sum+bag[i][1]);
-				
-				if(arr[w_sum += bag[i][0]] == 0) {
-					arr[w_sum += bag[i][0]] = w_sum += bag[i][0];
-					BestValue(s+1, w_sum += bag[i][0], v_sum += bag[i][1], d+1, N, max);
-				} else {
-					
-				}
-				
-				w_sum -= bag[i][0];
-				v_sum -= bag[i][1];
-			}
-			
-		}
+		
+		
+//		best = Math.max(best, dp[max]);
 	}
 }
