@@ -52,7 +52,7 @@ public class ClothesLend {
 	}
 
 	static int lend(int N, int num, int[] res) {
-		System.out.println(N + " :: " + num + " :: " + res.length);
+//		System.out.println(N + " :: " + num + " :: " + res.length);
         if(N+1 > res.length) return 1;
         
         if(dp[res[N]] == 0) {
