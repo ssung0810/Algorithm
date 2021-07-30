@@ -3,6 +3,7 @@ package Programmers.Lv1;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.StringTokenizer;
@@ -43,6 +44,7 @@ public class TwoSelectSum {
 			cnt++;
 		}
 			
+		ArrayList<Integer> a = new ArrayList<>();
 		Arrays.sort(answer);
 		System.out.println(Arrays.toString(answer));
 	}

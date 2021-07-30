@@ -3,18 +3,16 @@ package Programmers.Lv1;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Arrays;
 import java.util.StringTokenizer;
 
 public class ClothesLend {
-	static int[] dp;
-    static int[] member;
 
 	public static void main(String[] args) throws IOException {
 		BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
 		StringTokenizer st;
 		
 		int n = Integer.parseInt(bf.readLine());
-		
 		
 		int a = Integer.parseInt(bf.readLine());
 		int[] lost = new int[a];
@@ -35,39 +33,38 @@ public class ClothesLend {
 		////////////////////////////////////
 		
 		int answer = 0;
-		member = new int[n+2];
-        dp = new int[n+2];
-        
+		int[] clothes = new int[n+2];
+		Arrays.fill(clothes, 1);
+
         for(int i=0; i<lost.length; i++) {
-            member[lost[i]] = -1;
+            clothes[lost[i]]--;
+        }
+
+        for(int i=0; i<reserve.length; i++) {
+        	clothes[reserve[i]]++;
         }
         
-        if(reserve.length == 1) {
-        	if(member[reserve[0] - 1] == -1 || member[reserve[0] + 1] == -1) answer = 1;
-        } else {
-        	answer = lend(0, 0, reserve);
+        for(int i=0; i<clothes.length; i++) {
+        	if(clothes[i] == 2) {
+        		if(clothes[i-1] == 0) {
+        			clothes[i-1]++;
+        			clothes[i]--;
+        		} else if(clothes[i+1] == 0) {
+        			clothes[i+1]++;
+        			clothes[i]--;
+        		}
+        	}
         }
+
+        for(int i=0; i<clothes.length; i++) {
+            if(clothes[i] == 0) {
+                answer++;
+            }
+        }
+
+        answer = n-answer;
         
-        System.out.println(answer+ (n-lost.length));
+        System.out.println(answer);
 	}
 
-	static int lend(int N, int num, int[] res) {
-//		System.out.println(N + " :: " + num + " :: " + res.length);
-        if(N+1 > res.length) return 1;
-        
-        if(dp[res[N]] == 0) {
-            int a=0, b=0;
-            
-            if(member[res[N]-1] == -1 && res[N]-1 != num) {
-                a = 1 + lend(N+1, res[N]-1, res);
-            }
-            if(member[res[N]+1] == -1 && res[N]+1 != num) {
-                b = 1 + lend(N+1, res[N]+1, res);
-            }
-            
-            dp[res[N]] = Math.max(a, b);
-        }
-        
-        return dp[res[N]];
-    }
 }
