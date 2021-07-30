@@ -51,24 +51,14 @@ public class SecretMap_kakao {
 			}
 		}
 		
-		for(int i=0; i<5; i++) {
-			for(int j=0; j<5; j++) {
-				System.out.print(map2[i][j]);
-			}
-			System.out.println();
-		}
-		
-		int blankCk = 0;
 		for(int i=0; i<n; i++) {
 			answer[i] = "";
 			
 			for(int j=0; j<n; j++) {
 				if(map1[i][j] == 1 || map2[i][j] == 1) {
 					answer[i] = answer[i] + "#";
-					blankCk = 0;
-				} else if(blankCk == 0){
+				} else {
 					answer[i] = answer[i] + " ";
-					blankCk = 1;
 				}
 			}
 		}
@@ -84,7 +74,8 @@ public class SecretMap_kakao {
 			n = n / 2;
 		}
 		
-		for(int i=0; i<len-txt.length(); i++) {
+		len = len - txt.length();
+		for(int i=0; i<len; i++) {
 			txt = "0" + txt;
 		}
 		
