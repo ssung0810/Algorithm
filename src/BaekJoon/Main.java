@@ -3,44 +3,30 @@ package BaekJoon;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Stack;
 import java.util.StringTokenizer;
 
 public class Main {
-	static StringBuilder sb = new StringBuilder();
-	static boolean[] visit;
-	static int[] result;
     
 	public static void main(String[] args) throws IOException {
 		BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
-		StringTokenizer st = new StringTokenizer(bf.readLine());
+		StringTokenizer st;
 		
-		int N = Integer.parseInt(st.nextToken());
-		int M = Integer.parseInt(st.nextToken());
+		int N = Integer.parseInt(bf.readLine());
+		int[] arr = new int[N];
+		Stack<Integer> s = new Stack<>();
 		
-		visit = new boolean[N];
-		result = new int[M];
+		st = new StringTokenizer(bf.readLine());
+		for(int i=0; i<N; i++) {
+			arr[i] = Integer.parseInt(st.nextToken());
+		}
 		
-		dfs(N, 0, M, 0);
+		int start = arr[0];
 		
-		System.out.println(sb);
+		for(int i=1; i<N; i++) {
+			
+		}
+		
 	}
 	
-	static void dfs(int N, int D, int M, int s) {
-		if(M == D) {
-			for(int i=0; i<M; i++) {
-				sb.append(result[i] + " ");
-			}
-			sb.append("\n");
-			return;
-		}
-		
-		for(int i=s; i<N; i++) {
-//			if(!visit[i]) {
-				result[D] = i+1;
-				visit[i] = true;
-				dfs(N, D+1, M, i);
-				visit[i] = false;
-//			}
-		}
-	}
 }

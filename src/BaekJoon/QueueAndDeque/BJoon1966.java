@@ -9,7 +9,7 @@ import java.util.StringTokenizer;
 
 /* 프린터 큐
  * Created by qkrtjdcjf124
- * Date : 2021/06/17
+ * Date : 2021/08/03
  */
 public class BJoon1966 {
 
@@ -22,18 +22,8 @@ public class BJoon1966 {
 		int N = Integer.parseInt(bf.readLine());
 		
 		for(int i=0; i<N; i++) {
-			st = new StringTokenizer(bf.readLine());
-			int len = Integer.parseInt(st.nextToken());
-			int pos = Integer.parseInt(st.nextToken());
 			
-			st = new StringTokenizer(bf.readLine());
-			if(len == 1) sb.append(1 + "\n");
-			else {
-				for(int j=0; j<len; j++) {
-					q.offer(Integer.parseInt(st.nextToken()));
-				}
-			}
-		} 
+		}
 	}
 
 }
