@@ -8,21 +8,22 @@ import java.util.StringTokenizer;
 
 /* 벽 부수고 이동하기
  * Created by qkrtjdcjf124
- * Date : 2021/05/03
- * State : Fail..
+ * Date : 2021/08/06
  */
 public class BJoon2206 {
+	static long startTime = System.currentTimeMillis();
+	
 	static int N, M, maze[][];
-	static boolean[][] visit;
 	
 	public static void main(String[] args) throws Exception {
+		
+		
 		BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
 		StringTokenizer st = new StringTokenizer(bf.readLine());
 		
 		N = Integer.parseInt(st.nextToken());
 		M = Integer.parseInt(st.nextToken());
 		maze = new int[N][M];
-		visit = new boolean[N][M];
 		
 		for(int i=0; i<N; i++) {
 			String txt = bf.readLine();
@@ -31,18 +32,20 @@ public class BJoon2206 {
 			}
 		}
 		
-		bfs(0, 0);
+		bfs();
 		
 		if(maze[N-1][M-1] == 0) System.out.println(-1);
 		else System.out.println(maze[N-1][M-1]);
+		
+		long endTime = System.currentTimeMillis();
+		System.out.println((endTime - startTime));
 	}
 
-	public static void bfs(int x, int y) {
+	public static void bfs() {
 		Queue<MAP> q = new LinkedList<MAP>();
-		q.add(new MAP(x, y, 0));
+		q.add(new MAP(0, 0, 0));
 		int[] mx = {1, 0, -1, 0};
 		int[] my = {0, 1, 0, -1};
-		visit[0][0] = true;
 		maze[0][0] = 1;
 		int a,b,c;
 		
@@ -50,26 +53,26 @@ public class BJoon2206 {
 			MAP m = q.poll();
 			
 			for(int i=0; i<4; i++) {
+				if(m.x == N-1 && m.y == M-1) return;
+				
 				a = m.x + mx[i];
 				b = m.y + my[i];
 				c = m.crash;
 				
 				if(a < 0 || b < 0 || a >= N || b >= M) continue;
 				
-				if(a == N-1 && b == M-1) return;
-				
-				if(visit[a][b] == false) {
-					if(maze[a][b] == 1) {
-						if(c == 0) {
-							q.add(new MAP(a,b,1));
-							visit[a][b] = true;
-							maze[a][b] = maze[m.x][m.y] + 1;
-						}
+				int ck = maze[a][b];
+				if(c == 0 && (ck == 0 || ck == 1)) {
+					if(ck == 1) {
+						q.add(new MAP(a, b, 1));
+						maze[a][b] = maze[m.x][m.y] + 1;
 					} else {
-						q.add(new MAP(a,b,0));
-						visit[a][b] = true;
+						q.add(new MAP(a, b, 0));
 						maze[a][b] = maze[m.x][m.y] + 1;
 					}
+				} else if(c == 1 && ck == 0) {
+					q.add(new MAP(a, b, 1));
+					maze[a][b] = maze[m.x][m.y] + 1;
 				}
 			}
 		}

@@ -6,9 +6,10 @@ import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
 /* 단체사진 찍기
- * Date : 2021/08/04
+ * Date : 2021/08/06
  */
 public class GroupPhoto_kakao {
+	static boolean[] visit;
 
 	public static void main(String[] args) throws IOException {
 		BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
@@ -23,7 +24,11 @@ public class GroupPhoto_kakao {
 		
 		////////////////////////////////////
 		
-		
+		visit = new boolean[8];
 	}
 
+	
+	static void group(int d) {
+		
+	}
 }
