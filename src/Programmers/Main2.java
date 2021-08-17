@@ -9,19 +9,16 @@ import java.util.StringTokenizer;
 public class Main2 {
 
 	public static void main(String[] args) throws IOException {
-		BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
-		StringTokenizer st;
+//		BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+//		StringTokenizer st;
 		
-		HashMap<String, String> m = new HashMap<>();
-		m.put("a", "abc");
-//		m.put("b", "ab");
-		
-		String a = "bac";
-		
-		for(int i=1; i<=a.length(); i++) {
-			System.out.println(a.substring(0, i));
-		}
-		
+		char a = 'A';
+		char b = 'B';
+		char[] c = {'C', 'D', 'E'};
+
+		String txt = new String(c, 1, 2);
+
+		System.out.println(txt);
 	}
 
 }
