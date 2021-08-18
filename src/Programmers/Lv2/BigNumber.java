@@ -3,10 +3,7 @@ package Programmers.Lv2;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.StringTokenizer;
+import java.util.*;
 
 /* 가장 큰 수
  * Date : 2021/08/12
@@ -26,30 +23,26 @@ public class BigNumber {
         ///////////////////////////////////
 
         String answer = "";
-        String[] arr = new String[N];
-        for(int i=0; i<N; i++) {
-            arr[i] = String.valueOf(numbers[i]);
+        String[] arr = new String[numbers.length];
+        HashMap<String, String> map = new HashMap<>();
+
+        for(int i=0; i<numbers.length; i++) {
+            String txt = String.valueOf(numbers[i]);
+            arr[i] = txt+txt+txt;
+            map.put(arr[i], txt);
         }
 
-        /*Arrays.sort(arr, new Comparator<String>() {
-            @Override
-            public int compare(String o1, String o2) {
-                if(o1 - o2 > 0) {
-                    return 1;
-                }
-                return 0;
-            }
-        });*/
+        Arrays.sort(arr, Collections.reverseOrder());
 
-        for(int i=0; i<N; i++) {
-            System.out.print(arr[i] + " ");
+        for(int i=0; i<numbers.length; i++) {
+            arr[i] = map.get(arr[i]);
+            System.out.println(arr[i]);
+            answer += arr[i];
         }
+
+        if(answer.charAt(0) == '0') answer = "0";
+
+        System.out.println(answer);
     }
 
-//    public static Comparator<arr> comp = new Comparator<arr>() {
-//        @Override
-//        public int compare(arr o1, arr o2) {
-//            return 0;
-//        }
-//    }
 }
