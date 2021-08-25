@@ -36,7 +36,6 @@ public class BigNumber {
 
         for(int i=0; i<numbers.length; i++) {
             arr[i] = map.get(arr[i]);
-            System.out.println(arr[i]);
             answer += arr[i];
         }
 
