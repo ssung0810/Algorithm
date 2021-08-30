@@ -6,44 +6,24 @@ import java.io.InputStreamReader;
 
 /* 설탕 배달
  * Created by qkrtjdcjf124
- * Date : 2021/07/09
+ * Date : 2021/08/30
  */
 public class BJoon2839 {
-	static Integer[] dp = new Integer[5001];
 
 	public static void main(String[] args) throws IOException {
 		BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
 		
 		int N = Integer.parseInt(bf.readLine());
+		int answer = 0;
 
-		System.out.println(sugar(N, 1));
-	}
+		if(N == 3) answer = 1;
+		else if(N == 4 || N == 7) answer = -1;
+		else {
+			if(N % 5 == 0) answer = N / 5;
+			else if(N % 5 == 1 || N % 5 == 3) answer = N / 5 + 1;
+			else answer = N / 5 + 2;
+		}
 
-	static int sugar(int N, int sum) {
-		int a=sum, b=sum;
-		
-		if(dp[N] == null) {
-			if(N%3 == 0) {
-				a = N/3 + sum;
-			} else if(N-3 < 0) {
-				a = -1;
-			} else  {
-				a = sugar(N-3, sum+1);
-			}
-			
-			if(N-5 > 0) {
-				b = sugar(N-5, sum+1);
-			} else if(N-5 == 0) {
-				return b++;
-			} else if(N-5 < 0) {
-				return -1;
-			}
-		}
-		
-		if(a > 0 && b > 0) {
-			return Math.min(a, b);
-		} else {
-			return Math.max(a, b);
-		}
+		System.out.println(answer);
 	}
 }
