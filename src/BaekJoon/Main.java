@@ -1,52 +1,38 @@
 package BaekJoon;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.Arrays;
-import java.util.StringTokenizer;
+import java.util.Scanner;
 
 public class Main {
 
-    public static void main(String[] args) throws IOException{
-        BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
-        StringBuilder sb = new StringBuilder();
+    private static int[] arr; // 지방 예산
+    private static long answer = 0;
 
-        int N = Integer.parseInt(bf.readLine());
-        int[] arr = new int[N];
-
-        StringTokenizer st = new StringTokenizer(bf.readLine());
-        for(int i=0; i<N; i++) {
-            arr[i] = Integer.parseInt(st.nextToken());
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int N = sc.nextInt(); // 지방의 수
+        arr = new int[N];
+        for (int i = 0; i < N; i++) {
+            arr[i] = sc.nextInt();
         }
-
         Arrays.sort(arr);
-
-        int M = Integer.parseInt(bf.readLine());
-
-        st = new StringTokenizer(bf.readLine());
-        for(int i=0; i<M; i++) {
-            sb.append(search(Integer.parseInt(st.nextToken()), arr) + "\n");
-        }
-
-        System.out.println(sb);
-    }
-
-    static int search(int N, int[] arr) {
-        int start=0, end=arr.length-1, mid=(start+end)/2;
-
-        while(mid < end) {
-            if(N < arr[mid]) {
-                end = mid - 1;
-                mid = (start + end) / 2;
-            } else if(N > arr[mid]) {
-                start = mid + 1;
-                mid = (start + end) / 2;
-            } else {
-                break;
+        long M = sc.nextLong(); //총 예산
+        long left = 0;
+        long right = arr[N-1];
+        while (left <= right) {
+            long mid = (left + right) / 2; //내야할 세금
+            long sum = 0; // 모든 지방 세금 합
+            for (int money : arr) {
+                if (money >= mid) sum += mid; //내라는 세금 낼 수 있는 지방
+                else sum += money; //못내는 지방은 가진 최대 돈만 냄
+            }
+            if (sum > M) { // 내라는 세금 보다 많은 경우 -> 세금을  줄여본다.
+                right = mid - 1;
+            } else { // 내라는 세금보다 적은 경우 -> 세금을 높여서 더 최고의 경우의 수를 찾는다.
+                left = mid + 1;
+                answer = Math.max(answer, mid);
             }
         }
-
-        return N == arr[mid] ? 1 : 0;
+        System.out.println(answer);
     }
 }
