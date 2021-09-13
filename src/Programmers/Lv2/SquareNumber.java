@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 /* 멀쩡한 사각형
- * Date : 2021/08/03
+ * Date : 2021/09/08
  */
 public class SquareNumber {
 
@@ -16,25 +16,32 @@ public class SquareNumber {
 		int h = Integer.parseInt(bf.readLine());
 		
 		///////////////////////////
-		
-		long answer = 1;
-		
-		int w_even = 0;
-		int h_even = 0;
-		
-		if(w % 2 == 0) {
-			w_even = 1;
-			w -= 1;
-		}
-		if(h % 2 == 0) {
-			h_even = 1;
-			h -= 1;
-		}
-		
-//		int result = split(w/2, h/2);
-	}
 
-//	static int split(int w, int h) {
-//		
-//	}
+		int black = 0;
+		if(w == h) {
+			black = w;
+		} else {
+			int a = Math.max(w, h);
+			int b = Math.min(w, h);
+			int r = 0;
+
+			while(b != 0) {
+				r = a % b;
+				a = b;
+				b = r;
+			}
+
+			int W = w, H = h;
+			if(a != 1) {
+				W = w/a;
+				H = h/a;
+			}
+
+			black = (W+H-1)*a;
+		}
+
+		long answer = (long)w*(long)h - black;
+
+		System.out.println(answer);
+	}
 }
