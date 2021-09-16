@@ -9,16 +9,10 @@ import java.util.StringTokenizer;
 public class Main2 {
 
 	public static void main(String[] args) throws IOException {
-//		BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
-//		StringTokenizer st;
-		
-		char a = 'A';
-		char b = 'B';
-		char[] c = {'C', 'D', 'E'};
+		String a = "SI";
+		String b = "PORTAL";
 
-		String txt = new String(c, 1, 2);
-
-		System.out.println(txt);
+		System.out.println(a.compareTo(b));
 	}
 
 }

@@ -1,4 +1,4 @@
-package Programmers.WeeklyChange;
+package Programmers.WeeklyChallenge;
 
 import java.io.BufferedReader;
 import java.io.IOException;
