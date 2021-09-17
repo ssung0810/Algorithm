@@ -21,51 +21,39 @@ public class StringCompress {
 		int answer = 0;
 		int len = s.length();
 		int cnt = 0;
+		int max = len-1;
 		ArrayList<String> arr = new ArrayList<>();
 
 		for(int i=2; i<=len/2; i++) {
-			String txt = "";
-			for(int j=0; j<len; j++) {
-				if(i != 2) {
-					if(roop(i, j, s) == 0) {
+			String txt = roop(i, s);
+			answer = Math.max(max, txt.length());
 
-					}
-				} else {
-
-
-					if(j+1 < len && s.charAt(j) == s.charAt(j+1)) {
-						txt += '2'+s.charAt(j);
-						i++;
-					} else {
-						txt += s.charAt(j);
-					}
-				}
-			}
-
-			arr.add(txt);
+			System.out.println(txt);
 		}
-		
+
+		System.out.println(answer);
 	}
 
-	static int roop(int cnt, int start, String s) {
-		int end = 0;
-		int r = 0;
+	static String roop(int cnt, String s) {
+		String answer = "";
+		int ck = 1;
 
-		for(int i=start; i<s.length(); i++) {
-			int common = 1;
+		for(int i=0; i<s.length()-cnt+1; i++) {
+			int num = i+cnt;
 
-			while(i+cnt*common < s.length() && s.charAt(i) == s.charAt(i+cnt*common)) {
-				common++;
-			}
+			if(num+cnt < s.length() && s.substring(i, i+cnt).equals(s.substring(num, num+cnt))) {
+				ck++;
+				i += cnt - 1;
+				continue;
+			} else {
+				if(ck == 1) answer += s.charAt(i);
+				else answer += ck + s.substring(i, i+cnt);
 
-			end = common - 1;
-
-			if(r == cnt && end != 1) {
-
+				ck = 1;
 			}
 		}
 
-		return r;
+		return answer;
 	}
 }
 

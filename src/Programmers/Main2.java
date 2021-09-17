@@ -12,7 +12,7 @@ public class Main2 {
 		String a = "SI";
 		String b = "PORTAL";
 
-		System.out.println(a.compareTo(b));
+		System.out.println(b.substring(1, 3));
 	}
 
 }
