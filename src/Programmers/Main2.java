@@ -9,10 +9,10 @@ import java.util.StringTokenizer;
 public class Main2 {
 
 	public static void main(String[] args) throws IOException {
-		String a = "SI";
-		String b = "PORTAL";
+		String a = "0";
+		String b = "2";
 
-		System.out.println(b.substring(1, 3));
+		System.out.println(b.compareTo(a));
 	}
 
 }

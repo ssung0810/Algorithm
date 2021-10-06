@@ -3,7 +3,11 @@ package Programmers.Lv2;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.HashMap;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+
+import static com.sun.org.apache.xalan.internal.lib.ExsltStrings.split;
 
 /* 순위 검색
  * Date : 2021/09/26
@@ -28,38 +32,67 @@ public class RankingSearch {
 
         int[] answer = new int[query.length];
 
-        HashMap<Integer, Integer> success = new HashMap<>();
         for(int i=0; i<info.length; i++) {
-            success.put(i, 0);
-        }
+            String[] infoArr = info[i].split(" ");
+            int score = Integer.parseInt(infoArr[4]);
 
-        for(int i=0; i< query.length; i++) {
-            String[] arr = query[i].replaceAll("and ", "").split(" ");
-            int cnt = 0;
+            for(int j=0; j<query.length; j++) {
+                String[] arr = query[j].replaceAll("and ", "").split(" ");
+                int cnt = 0;
+                int result = 0;
 
-            for(int j=0; j<arr.length; j++) {
-                if(!arr[j].equals("-")) {
-                    for(int k=0; k<info.length; k++) {
-                        if(j == 4) {
-                            int num = Integer.parseInt(info[k].split(" ")[4]);
-                            if(num >= Integer.parseInt(arr[j])) {
-                                success.put(k, success.getOrDefault(k, 0) + 1);
+                for(int q=0; q<arr.length; q++) {
+                    if(!arr[q].equals("-")) {
+                        if (q == 4) {
+                            if (score >= Integer.parseInt(arr[q])) {
+                                result++;
                             }
-                        } else if(info[k].contains(arr[j])) {
-                            success.put(k, success.getOrDefault(k, 0) + 1);
+                        } else if(infoArr[q].equals(arr[q])) {
+                            result++;
                         }
-                    }
-                    cnt++;
-                }
-            }
 
-            int result = 0;
-            for(int key : success.keySet()) {
-                if(success.get(key) == cnt) result++;
-                success.put(key, 0);
+                        cnt++;
+                    }
+                }
+
+                if(result == cnt) answer[j]++;
             }
-            answer[i] = result;
         }
+
+//        for(int i=0; i<query.length; i++) {
+//            String[] arr = query[i].replaceAll("and ", "").split(" ");
+//            int cnt = 0;
+//
+//            for(int j=0; j<arr.length; j++) {
+//                if(!arr[j].equals("-")) {
+////                    box.add(arr[j]);
+//
+//                    for(int k=0; k<info.length; k++) {
+//                        if(j == 4) {
+//                            int num = Integer.parseInt(info[k].split(" ")[4]);
+//                            if (num >= Integer.parseInt(arr[j])) {
+//                                success[k]++;
+//                            }
+//                        } else if(box.add(info[k]) == true) {
+//                            System.out.println(arr[j] + " :: " + info[k]);
+//                            success[k]++;
+//                        }
+//                        } else if(info[k].contains(arr[j])) {
+//                            success[k]++;
+//                        }
+//                    }
+//                    cnt++;
+////                    box.clear();
+//                }
+//            }
+//
+//            int result = 0;
+//            for(int q=0; q< success.length; q++) {
+//                if(success[q] == cnt) result++;
+//                success[q] = 0;
+//            }
+//            answer[i] = result;
+//        }
 
         for(int num : answer) {
             System.out.print(num + " ");
