@@ -1,18 +1,19 @@
 package Programmers;
 
-import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.HashMap;
-import java.util.StringTokenizer;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Stream;
 
 public class Main2 {
 
 	public static void main(String[] args) throws IOException {
-		String a = "0";
-		String b = "2";
+		int n = 6;
 
-		System.out.println(b.compareTo(a));
+		int a = (int)(n*(n+1)/2);
+
+		System.out.println(a);
 	}
 
 }
