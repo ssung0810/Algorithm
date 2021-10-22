@@ -28,72 +28,70 @@ public class week10 {
         ///////////////////////////////////////////////
 
         ArrayList<int[]> star = new ArrayList<>();
+        long max_x = Integer.MIN_VALUE;
+        long min_x = Integer.MAX_VALUE;
+        long max_y = Integer.MIN_VALUE;
+        long min_y = Integer.MAX_VALUE;
 
+        // x, y 좌표 중 정수인것만 리스트에 입력
         for(int i=0; i< line.length; i++) {
             int[] arr = line[i];
             for(int j=i+1; j< line.length; j++) {
-                int a = arr[0] * line[j][1] - arr[1] * line[j][0];
-                int b = arr[1] * line[j][2] - arr[2] * line[j][1];
+                long bottom = arr[0] * line[j][1] - arr[1] * line[j][0];
+                if(bottom == 0) continue;
 
-                if((a != 0 && b % a == 0) && (b/a * arr[0] + arr[2]) % arr[1] == 0) {
-                    star.add(new int[]{b/a, -(b/a * arr[0] + arr[2]) / arr[1]});    // (x좌표, y좌표) 입력
+                long a = arr[1] * line[j][2] - arr[2] * line[j][1];
+                long b = arr[2] * line[j][0] - arr[0] * line[j][2];
+
+                if(a % bottom == 0 && b % bottom == 0) {
+                    max_x = Math.max((int) (a/bottom), max_x);
+                    min_x = Math.min((int) (a/bottom), min_x);
+                    max_y = Math.max((int) (b/bottom), max_y);
+                    min_y = Math.min((int) (b/bottom), min_y);
+                    star.add(new int[]{(int) (a/bottom), (int) (b/bottom)});    // (x좌표, y좌표) 입력
                 }
             }
         }
 
-        int[][] result = new int[star.size()][2];
-        int max_x = Integer.MIN_VALUE;
-        int min_x = Integer.MAX_VALUE;
-        for(int i=0; i<star.size(); i++) {
-            result[i][0] = star.get(i)[0];
-            result[i][1] = star.get(i)[1];
-
-            max_x = Math.max(result[i][0], max_x);
-            min_x = Math.min(result[i][0], min_x);
-        }
-
-        Arrays.sort(result, comp);
-
-        int len = result.length;
-        int size_x = Math.abs(max_x - min_x) + 1;
-        int size_y = Math.abs(result[0][1] - result[result.length-1][1]) + 1;
+        int size_x = (int) (max_x - min_x + 1);
+        int size_y = (int) (max_y - min_y + 1);
 
         String[] answer = new String[size_y];
-
-//        for(int[] p : result) {
-//            System.out.println(p[0] + " :: " + p[1]);
-//        }
-
         StringBuilder sb = new StringBuilder();
-        for(int i=result[0][1], cnt=0, r=0; i>=result[result.length-1][1]; i--, r++) {
-//            System.out.println("i " + i);
+        for(int i=0; i<size_x; i++) {
+            sb.append(".");
+        }
+        Arrays.fill(answer, sb.toString());
 
-            for(int j=min_x; j<=max_x; j++) {
-//                System.out.println("j " + j);
+        // 그래프 입력
+        int x=0, y=0;
+        System.out.println(size_x + " :: " + max_x);
+        System.out.println(size_y + " :: " + max_y);
+        for(int i=0; i< star.size(); i++) {
+            if(size_y != max_y) y = star.get(i)[1]+(int)max_y;
+            else y = star.get(i)[1];
+            if(size_x != max_x) x = star.get(i)[0]+(int)max_x;
+            else x = star.get(i)[0];
 
-                if(j == result[cnt][0] && i == result[cnt][1]) {
-                    sb.append("*");
-                    cnt++;
-                } else {
-                    sb.append(".");
-                }
-            }
-
-            answer[r] = sb.toString();
-            sb = new StringBuilder();
+            String str = answer[y];
+            sb = new StringBuilder(str);
+            sb.replace(x, x+1, "*");
+            answer[y] = sb.toString();
         }
 
         System.out.println(Arrays.toString(answer));
     }
 
-    static Comparator<int[]> comp = new Comparator<int[]>() {
+    static Comparator<long[]> comp = new Comparator<long[]>() {
         @Override
-        public int compare(int[] o1, int[] o2) {
+        public int compare(long[] o1, long[] o2) {
             if(o1[1] == o2[1]) {
-                return o1[0] - o2[0];
+                if(o1[0] >= o2[0]) return 1;
+                else return -1;
             }
 
-            return o2[1] - o1[1];
+            if(o2[1] >= o1[1]) return 1;
+            else return -1;
         }
     };
 }
