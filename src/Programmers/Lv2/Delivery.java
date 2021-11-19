@@ -43,17 +43,18 @@ public class Delivery {
                 if(visit[i]) continue;
 
                 if(road[i][0] == num || road[i][1] == num) {
-                    int a = road[i][0];
-                    int b = road[i][1];
                     visit[i] = true;
-
-                    if(a == num) {
-                        q.add(b);
-                        dp[b] = dp[b] == 0 ? dp[a] + road[i][2] : Math.min(dp[b], dp[a] + road[i][2]);
+                    int a=0, b=0;
+                    if(road[i][0] == num) {
+                        a = road[i][0];
+                        b = road[i][1];
                     } else {
-                        q.add(a);
-                        dp[a] = dp[a] == 0 ? dp[b] + road[i][2] : Math.min(dp[a], dp[b] + road[i][2]);
+                        a = road[i][1];
+                        b = road[i][0];
                     }
+
+                    q.add(b);
+                    dp[b] = dp[b] == 0 ? dp[a] + road[i][2] : Math.min(dp[b], dp[a] + road[i][2]);
                 }
             }
 
