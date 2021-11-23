@@ -7,7 +7,7 @@ import java.util.Arrays;
 import java.util.StringTokenizer;
 
 /* H-Index
- * Date : 2021/10/06
+ * Date : 2021/11/23
  */
 public class H_Index {
     public static void main(String[] args) throws IOException {
@@ -23,20 +23,21 @@ public class H_Index {
 
         //////////////////////////////////////////
 
-        int answer = 0;
-//        Arrays.sort(citations);
+        int answer = 1;
+        Arrays.sort(citations);
 
-        int left = 0;
-        int right = citations.length-1;
-
-        for(int i=0; i<citations.length; i++) {
-            if(i > right) {
-                answer = i;
+        for(int i=citations.length-1; i>=0; i--, answer++) {
+            if(answer > citations[i]) {
+                answer--;
                 break;
             }
 
-            left++;
-            right--;
+            if(i == 0) answer--;
+        }
+
+        if(citations.length == 1) {
+            if(citations[0] == 1) answer = 1;
+            else answer = 0;
         }
 
         System.out.println(answer);
