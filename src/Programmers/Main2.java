@@ -8,10 +8,10 @@ import java.util.Set;
 
 public class Main2 {
 	public static void main(String[] args) throws IOException {
-		String a = "BCA";
-		char[] b = a.toCharArray();
-		Arrays.sort(b);
-		String c = new String(b);
-		System.out.println(c);
+		char[][] a = new char[5][5];
+
+		System.out.println(a[0][0]);
+		if(a[0][0] == '\0') System.out.println("s");
+
 	}
 }

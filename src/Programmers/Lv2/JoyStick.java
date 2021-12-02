@@ -3,9 +3,10 @@ package Programmers.Lv2;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Arrays;
 
 /* 조이스틱
- * Date : 2021/08/10
+ * Date : 2021/12/02
  */
 public class JoyStick {
 
@@ -15,36 +16,43 @@ public class JoyStick {
 		String name = bf.readLine();
 		
 		///////////////////////////
-		
+
 		int answer = 0;
-		int[] dp = new int[name.length()+1];
-		int cnt = 0;
-		
-		// 맨 앞에서부터 맨 뒤까지
+		int[] move = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1};
+		boolean[] visit = new boolean[name.length()];
+		visit[0] = true;
+
 		for(int i=0; i<name.length(); i++) {
-			int num = name.charAt(i) - 65;
-			
-			if(num == 1) {
-				
-			} else if(num <= 13) {
-				answer += num + cnt;
-				dp[i] = num;
+			int num = move[name.charAt(i)-'A'];
+			answer += num;
+			if(num == 0) visit[i] = true;
+		}
+
+		int left = 0;
+		int right = 0;
+		int cnt = 0;
+		while (cnt < name.length()) {
+			if(left == 0) left = visit.length-1;
+			else left--;
+
+			if(right == visit.length-1) right=0;
+			else right++;
+
+			cnt++;
+
+			if(visit[right] == false) {
+				visit[right] = true;
+				left = right;
+				answer += cnt;
 				cnt = 0;
-			} else {
-				answer += (26-num) + cnt;
-				dp[i] = 26-num;
+			} else if(visit[left] == false) {
+				visit[left] = true;
+				right = left;
+				answer += cnt;
 				cnt = 0;
 			}
-			
-			cnt++;
 		}
-		
-		// 맨 뒤에서부터 맨 앞까지
-		for(int i=name.length()-1; i>=0; i++) {
-			
-		}
-		
+
 		System.out.println(answer);
 	}
-
 }
