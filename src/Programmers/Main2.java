@@ -8,10 +8,8 @@ import java.util.Set;
 
 public class Main2 {
 	public static void main(String[] args) throws IOException {
-		char[][] a = new char[5][5];
+		String t = "ABCD";
 
-		System.out.println(a[0][0]);
-		if(a[0][0] == '\0') System.out.println("s");
-
+		System.out.println(t.substring(0, 3));
 	}
 }
