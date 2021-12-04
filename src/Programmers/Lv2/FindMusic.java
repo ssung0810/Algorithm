@@ -13,21 +13,24 @@ public class FindMusic {
         BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
 
         String m = bf.readLine();
-        String[] musicinfos = new String[8];
-        StringTokenizer st = new StringTokenizer(bf.readLine());
-        for(int i=0; i<8; i++) {
-            musicinfos[i] = st.nextToken();
+        String[] musicinfos = new String[2];
+        for(int i=0; i<2; i++) {
+            musicinfos[i] = bf.readLine();
         }
 
         ////////////////////////////////////////////////
 
         String answer = "(None)";
         ArrayList<music> arr = new ArrayList<>();
+        StringBuilder sb;
 
         m = blackKey(m);
 
-        for(int i=0; i<musicinfos.length; i+=4) {
-            arr.add(new music(getTime(musicinfos[i], musicinfos[i+1]), musicinfos[i+2], blackKey(musicinfos[i+3])));
+        for(int i=0; i<musicinfos.length; i++) {
+            int time = getTime(musicinfos[i].split(",")[0], musicinfos[i].split(",")[1]);
+            String name = musicinfos[i].split(",")[2];
+            String sheet = blackKey(musicinfos[i].split(",")[3]);
+            arr.add(new music(time, name, sheet));
         }
 
         Collections.sort(arr, comp);
@@ -35,6 +38,7 @@ public class FindMusic {
         for(music ms : arr) {
             int time = ms.time;
             String t = ms.sheet;
+            sb = new StringBuilder();
 
             if(time < t.length()) {
                 t = t.substring(0, time);
@@ -42,17 +46,17 @@ public class FindMusic {
                 int cnt = time/t.length();
                 String txt = "";
                 while(cnt-- > 0 ) {
-                    txt += t;
+                    sb.append(t);
                 }
 
                 if(time % t.length() > 0) {
                     cnt = time%t.length();
                     for(int i=0; i<cnt; i++) {
-                        txt += t.charAt(i);
+                        sb.append(t.charAt(i));
                     }
                 }
 
-                t = txt;
+                t = sb.toString();
             }
 
             if(t.contains(m)) {
@@ -80,7 +84,7 @@ public class FindMusic {
     static Comparator<music> comp = new Comparator<music>() {
         @Override
         public int compare(music o1, music o2) {
-            if(o1.time < o2.time) {
+            if(o1.time <= o2.time) {
                 return 1;
             }
 
