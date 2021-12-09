@@ -3,12 +3,10 @@ package Programmers.Lv2;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.Arrays;
 
 /* n^2 배열 자르기
- * Date : 2021/11/26
+ * Date : 2021/12/09
  */
 public class CutTheArray {
     public static void main(String[] args) throws IOException {
@@ -20,31 +18,24 @@ public class CutTheArray {
 
         /////////////////////////////////////////
 
-        int len = (int)(right-left+1);
+        int len = (int) (right - left + 1);
         int[] answer = new int[len];
-
-        int row = (int) left / n;
-        int col = (int) left % n;
         int cnt = 0;
-        int endRow = (int) right / n;
-        int endCol = (int) right % n;
 
-//        System.out.println(row + " :: " + col + " :: " + endRow + " :: " + endCol);
-        while(true) {
-//            System.out.println(row + " :: " + col + " :: " + endRow + " :: " + endCol);
-            if(row >= col) answer[cnt] = row+1;
-            else answer[cnt] = col+1;
+        while(left < right) {
+            int x = (int)(left/n);
+            int y = (int)(left%n);
 
-            cnt++;
-            col++;
+            while(y < n && left <= right) {
+                if(y <= x) {
+                    answer[cnt] = x+1;
+                } else {
+                    answer[cnt] = y+1;
+                }
 
-            if(row == endRow) {
-                if(col > endCol) break;
-            }
-
-            if(col == n) {
-                row++;
-                col = 0;
+                left++;
+                cnt++;
+                y++;
             }
         }
 
