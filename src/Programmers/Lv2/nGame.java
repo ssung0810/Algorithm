@@ -28,7 +28,6 @@ public class nGame {
             sb = new StringBuilder();
             int num = i;
             while(num >= n) {
-//                System.out.println(numberCheck(num%n));
                 sb.insert(0, numberCheck(num%n));
                 num /= n;
             }
@@ -37,8 +36,6 @@ public class nGame {
 
             txt.append(sb.toString());
         }
-
-//        System.out.println(txt.toString());
 
         for(int i=0, s=p-1; i<t; i++, s+=m) {
             answer.append(txt.charAt(s));
