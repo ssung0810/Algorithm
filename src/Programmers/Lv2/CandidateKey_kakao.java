@@ -1,16 +1,14 @@
 package Programmers.Lv2;
 
-import javax.annotation.processing.SupportedSourceVersion;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.Set;
 import java.util.StringTokenizer;
 
 /* 후보키
- * Date : 2021/08/20
+ * Date : 2021/12/13
  */
 public class CandidateKey_kakao {
     static ArrayList<String> str = new ArrayList<>();
