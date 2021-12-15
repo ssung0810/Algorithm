@@ -12,9 +12,11 @@ import java.util.*;
  * Date : 2021/12/13
  */
 public class CandidateKey_kakao {
-    static ArrayList<String> str = new ArrayList<>();
+    static ArrayList<HashSet<Integer>> box = new ArrayList<>();
+    static HashSet<Integer> idxSet = new HashSet<>();
     static HashSet<String> set = new HashSet<>();
     static boolean[] visit;
+    static int result = 0;
 
     public static void main(String[] args) throws IOException {
         BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
@@ -36,7 +38,6 @@ public class CandidateKey_kakao {
 
         int answer = 0;
         visit = new boolean[relation[0].length];
-        Queue<Integer> q = new LinkedList<>();
 
         // 1개만 했을 때 중복체크
         for(int i=0; i<relation[0].length; i++) {
@@ -53,43 +54,47 @@ public class CandidateKey_kakao {
             if(set.size() == relation.length) answer++;
         }
 
-        System.out.println(Arrays.toString(visit));
+//        System.out.println(Arrays.toString(visit));
 
-        for(int i=0; i<relation[0].length; i++) {
-            if(visit[i]) {
-                int cnt = 2;
-                q.add(i);
-                for(int j=i+1; j<relation[0].length; j++) {
-                    if(!visit[j]) continue;
-
-                    q.add(j);
-                    cnt++;
-                    set.clear();
-
-                    if(isUnique(q, relation)) {
-                        answer++;
-                        break;
-                    }
-                }
-
-                q.clear();
-            }
+        for(int i=2; i<=relation[0].length; i++) {
+            idxSet.clear();
+            search(0, i, 0, relation);
         }
 
-        System.out.println(answer);
+        System.out.println(answer+=result);
     }
 
-    static boolean isUnique(Queue<Integer> q, String[][] relation) {
-        StringBuilder sb = new StringBuilder();
+    static void search(int s, int size, int d, String[][] relation) {
+        if(d == size) {
+            for(HashSet<Integer> ck : box) {
+                if(idxSet.containsAll(ck)) {
+                    return;
+                }
+            }
 
-        for(int num : q) {
-            System.out.print(q + " ");
+            if(isUnique(relation)) {
+                result++;
+                box.add(idxSet);
+            }
+        } else {
+            for(int i=s; i<relation[0].length; i++) {
+                if(!visit[i]) continue;
+
+                idxSet.add(i);
+                search(i+1, size, d+1, relation);
+                idxSet.remove(i);
+            }
         }
-        System.out.println();
+    }
+
+
+    static boolean isUnique(String[][] relation) {
+        StringBuilder sb = new StringBuilder();
+        set = new HashSet<>();
 
         for(int i=0; i<relation.length; i++) {
-            for(int idx : q) {
-                sb.append(relation[q.poll()][i]);
+            for(int idx : idxSet) {
+                sb.append(relation[i][idx]);
             }
             if(!set.add(sb.toString())) return false;
         }
