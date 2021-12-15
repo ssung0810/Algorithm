@@ -1,8 +1,5 @@
 package Programmers.Lv2;
 
-import com.sun.org.apache.xpath.internal.objects.XBoolean;
-import com.sun.xml.internal.ws.api.ha.StickyFeature;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
