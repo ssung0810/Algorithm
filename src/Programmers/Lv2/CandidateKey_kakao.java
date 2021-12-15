@@ -9,7 +9,7 @@ import java.io.InputStreamReader;
 import java.util.*;
 
 /* 후보키
- * Date : 2021/12/13
+ * Date : 2021/12/16
  */
 public class CandidateKey_kakao {
     static ArrayList<HashSet<Integer>> box = new ArrayList<>();
@@ -54,10 +54,7 @@ public class CandidateKey_kakao {
             if(set.size() == relation.length) answer++;
         }
 
-//        System.out.println(Arrays.toString(visit));
-
         for(int i=2; i<=relation[0].length; i++) {
-            idxSet.clear();
             search(0, i, 0, relation);
         }
 
@@ -75,6 +72,7 @@ public class CandidateKey_kakao {
             if(isUnique(relation)) {
                 result++;
                 box.add(idxSet);
+                idxSet = new HashSet<>(idxSet);
             }
         } else {
             for(int i=s; i<relation[0].length; i++) {
@@ -93,9 +91,12 @@ public class CandidateKey_kakao {
         set = new HashSet<>();
 
         for(int i=0; i<relation.length; i++) {
+            sb = new StringBuilder();
+
             for(int idx : idxSet) {
                 sb.append(relation[i][idx]);
             }
+
             if(!set.add(sb.toString())) return false;
         }
 
