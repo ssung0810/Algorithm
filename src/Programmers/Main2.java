@@ -1,19 +1,28 @@
 package Programmers;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.*;
 
 public class Main2 {
 	public static void main(String[] args) throws IOException {
-		HashSet<Integer> set = new HashSet<>();
-		HashSet<Integer> set2 = new HashSet<>();
+		ArrayList<Character> a = new ArrayList<>();
 
-		set.add(1);
-		set.add(2);
+		a.add('8');
+		a.add('6');
+		a.add('4');
 
-		set2.add(1);
-		set2.add(3);
+		for(int i=0; i<a.size(); i++) {
+			char n = a.get(i);
+			if(n == '8' || n == '4') {
+				a.remove(i);
+			}
+		}
 
-		System.out.println(set2.containsAll(set));
+		for(char n : a) {
+			System.out.println(n);
+		}
+
+		System.out.println(a.get(0));
 	}
 }
