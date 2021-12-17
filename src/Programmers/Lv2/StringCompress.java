@@ -3,57 +3,61 @@ package Programmers.Lv2;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 /* 문자열 압축
- * Date : 2021/07/31
+ * Date : 2021/12/17
  */
 public class StringCompress {
 
 	public static void main(String[] args) throws IOException {
 		BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
-		
+
 		String s = bf.readLine();
 		
 		///////////////////////////////////
 		
-		int answer = 0;
-		int len = s.length();
-		int cnt = 0;
-		int max = len-1;
-		ArrayList<String> arr = new ArrayList<>();
+		int answer = s.length();
 
-		for(int i=2; i<=len/2; i++) {
-			String txt = roop(i, s);
-			answer = Math.max(max, txt.length());
-
-			System.out.println(txt);
+		for(int i=1; i<=s.length()/2; i++) {
+			answer = Math.min(compress(s, i).length(), answer);
 		}
 
 		System.out.println(answer);
 	}
 
-	static String roop(int cnt, String s) {
-		String answer = "";
-		int ck = 1;
+	static String compress(String s, int n) {
+		StringBuilder sb = new StringBuilder();
+		String txt = "";
+		String compress = "";
+		int cnt = 1;
 
-		for(int i=0; i<s.length()-cnt+1; i++) {
-			int num = i+cnt;
+		for(int i=0; i<s.length(); i+=n) {
 
-			if(num+cnt < s.length() && s.substring(i, i+cnt).equals(s.substring(num, num+cnt))) {
-				ck++;
-				i += cnt - 1;
-				continue;
+			if(i+n < s.length()) {
+				txt = s.substring(i, i + n);
 			} else {
-				if(ck == 1) answer += s.charAt(i);
-				else answer += ck + s.substring(i, i+cnt);
-
-				ck = 1;
+				txt = s.substring(i);
 			}
+
+			if(i != 0) {
+				if(txt.equals(compress)) {
+					cnt++;
+				} else if(cnt >= 2) {
+					sb.append(cnt+compress);
+					cnt = 1;
+				} else {
+					sb.append(compress);
+				}
+			}
+
+			compress = txt;
 		}
 
-		return answer;
+		if(cnt >= 2) sb.append(cnt+compress);
+		else sb.append(compress);
+
+		return sb.toString();
 	}
 }
 
