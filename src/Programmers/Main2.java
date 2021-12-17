@@ -1,28 +1,35 @@
 package Programmers;
 
+import java.io.BufferedReader;
 import java.io.IOException;
-import java.lang.reflect.Array;
+import java.io.InputStreamReader;
 import java.util.*;
 
 public class Main2 {
 	public static void main(String[] args) throws IOException {
-		ArrayList<Character> a = new ArrayList<>();
+		BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
 
-		a.add('8');
-		a.add('6');
-		a.add('4');
+		String number = bf.readLine();
+		int k = Integer.parseInt(bf.readLine());
 
-		for(int i=0; i<a.size(); i++) {
-			char n = a.get(i);
-			if(n == '8' || n == '4') {
-				a.remove(i);
+		///////////////////////////////////////////
+
+		char[] result = new char[number.length() - k];
+		Stack<Character> stack = new Stack<>();
+
+		for (int i=0; i<number.length(); i++) {
+			char c = number.charAt(i);
+			while (!stack.isEmpty() && stack.peek() < c && k-- > 0) {
+				stack.pop();
 			}
+			stack.push(c);
+
+			System.out.println(k);
+		}
+		for (int i=0; i<result.length; i++) {
+			result[i] = stack.get(i);
 		}
 
-		for(char n : a) {
-			System.out.println(n);
-		}
-
-		System.out.println(a.get(0));
+		System.out.println(new String(result));
 	}
 }
