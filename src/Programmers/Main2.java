@@ -7,11 +7,8 @@ import java.util.*;
 
 public class Main2 {
 	public static void main(String[] args) throws IOException {
-		StringBuilder sb = new StringBuilder();
+		String t = ")(";
 
-		sb.append("1");
-		sb.append("2");
-
-		System.out.println(sb.length());
+		System.out.println(t.substring(2));
 	}
 }
