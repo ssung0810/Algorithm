@@ -7,8 +7,8 @@ import java.util.*;
 
 public class Main2 {
 	public static void main(String[] args) throws IOException {
-		String t = ")(";
+		char t = '*';
 
-		System.out.println(t.substring(2));
+		System.out.println(t-'0');
 	}
 }
