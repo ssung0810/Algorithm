@@ -7,8 +7,16 @@ import java.util.*;
 
 public class Main2 {
 	public static void main(String[] args) throws IOException {
-		char t = '*';
+		char a = ')';
 
-		System.out.println(t-'0');
+		/* [ = 91
+		 * ] = 93
+		 * { = 123
+		 * } = 125
+		 * ( = 40
+		 * ) = 41
+		 */
+
+		System.out.println((int) a);
 	}
 }

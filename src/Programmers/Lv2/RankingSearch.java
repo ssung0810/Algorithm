@@ -59,41 +59,6 @@ public class RankingSearch {
             }
         }
 
-//        for(int i=0; i<query.length; i++) {
-//            String[] arr = query[i].replaceAll("and ", "").split(" ");
-//            int cnt = 0;
-//
-//            for(int j=0; j<arr.length; j++) {
-//                if(!arr[j].equals("-")) {
-////                    box.add(arr[j]);
-//
-//                    for(int k=0; k<info.length; k++) {
-//                        if(j == 4) {
-//                            int num = Integer.parseInt(info[k].split(" ")[4]);
-//                            if (num >= Integer.parseInt(arr[j])) {
-//                                success[k]++;
-//                            }
-//                        } else if(box.add(info[k]) == true) {
-//                            System.out.println(arr[j] + " :: " + info[k]);
-//                            success[k]++;
-//                        }
-//                        } else if(info[k].contains(arr[j])) {
-//                            success[k]++;
-//                        }
-//                    }
-//                    cnt++;
-////                    box.clear();
-//                }
-//            }
-//
-//            int result = 0;
-//            for(int q=0; q< success.length; q++) {
-//                if(success[q] == cnt) result++;
-//                success[q] = 0;
-//            }
-//            answer[i] = result;
-//        }
-
         for(int num : answer) {
             System.out.print(num + " ");
         }
