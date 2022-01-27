@@ -7,16 +7,12 @@ import java.util.*;
 
 public class Main2 {
 	public static void main(String[] args) throws IOException {
-		char a = ')';
+		String a = "abcd";
 
-		/* [ = 91
-		 * ] = 93
-		 * { = 123
-		 * } = 125
-		 * ( = 40
-		 * ) = 41
-		 */
+		StringBuilder sb = new StringBuilder();
+		sb.append(a);
 
-		System.out.println((int) a);
+
+		System.out.println(sb.toString());
 	}
 }
