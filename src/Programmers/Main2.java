@@ -7,12 +7,9 @@ import java.util.*;
 
 public class Main2 {
 	public static void main(String[] args) throws IOException {
-		String a = "abcd";
+		int[] a = {1, 2, 3};
+		int[] b = {1, 2, 3};
 
-		StringBuilder sb = new StringBuilder();
-		sb.append(a);
-
-
-		System.out.println(sb.toString());
+		System.out.println(Arrays.equals(a, b));
 	}
 }
