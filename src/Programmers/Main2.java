@@ -7,8 +7,12 @@ import java.util.*;
 
 public class Main2 {
 	public static void main(String[] args) throws IOException {
-		Optional<String> optional = Optional.empty();
+		StringBuilder sb = new StringBuilder();
 
-		System.out.println(optional);
+		sb.append("01234");
+
+		sb.delete(2, 3);
+
+		System.out.println(sb.toString());
 	}
 }
