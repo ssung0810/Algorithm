@@ -3,8 +3,8 @@ package BaekJoon.BinaraySearch;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.lang.reflect.Array;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.StringTokenizer;
 
 /* 수 찾기
@@ -19,39 +19,40 @@ public class BJoon1920 {
 		
 		int N = Integer.parseInt(bf.readLine());
 		int[] A = new int[N];
-		
+
 		StringTokenizer st = new StringTokenizer(bf.readLine());
 		for(int i=0; i<N; i++) {
 			A[i] = Integer.parseInt(st.nextToken());
 		}
-		
+
 		Arrays.sort(A);
-		
+
 		int M = Integer.parseInt(bf.readLine());
 		st = new StringTokenizer(bf.readLine());
-		while(M-- > 0) {
+
+		for(int i=0; i<M; i++) {
 			int num = Integer.parseInt(st.nextToken());
-			int cnt = 0;
 			int start = 0;
 			int end = A.length - 1;
-			int mid = (end+start) / 2;
+			int mid = 0;
+			int result = 0;
 
-			while(end-start >= 0) {
+			while(start <= end) {
+				mid = (start + end) / 2;
+
 				if(A[mid] == num) {
-					cnt = 1;
+					result = 1;
 					break;
-				} else if(A[mid] > num) {
-					end = mid-1;
 				} else if(A[mid] < num) {
 					start = mid+1;
+				} else if(A[mid] > num) {
+					end = mid-1;
 				}
-				
-				mid = (end+start) / 2;
 			}
-			
-			sb.append(cnt + "\n");
+
+			sb.append(result + "\n");
 		}
-		
+
 		System.out.println(sb);
 	}
 
