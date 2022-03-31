@@ -1,20 +1,23 @@
 package Programmers.test.v2;
 
 import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.Queue;
 
 /* 프렌즈4블록
  * Date : 2022/03/28
  */
 public class test2 {
 
-    static int[] x = {0, 1, 1};
-    static int[] y = {1, 1, 0};
     static boolean[][] visit;
 
     public static void main(String[] args) {
-        int m = 6;
-        int n = 6;
-        String[] board = {"TTTANT", "RRFACC", "RRRFCC", "TRRRAA", "TTMMMF", "TMMTTJ"};
+//        int m = 6;
+//        int n = 6;
+//        String[] board = {"TTTANT", "RRFACC", "RRRFCC", "TRRRAA", "TTMMMF", "TMMTTJ"};
+        int m = 4;
+        int n = 5;
+        String[] board = {"CCBDE", "AAADE", "AAABF", "CCBBF"};
 
         int answer = solution(m, n, board);
 
@@ -27,80 +30,92 @@ public class test2 {
         char[][] arr = new char[m][n];
         for (int i=0; i<m; i++) {
             arr[i] = board[i].toCharArray();
-//            System.out.println(Arrays.toString(arr[i]));
         }
 
         visit = new boolean[m][n];
+        int cnt = 0;
+        while(true) {
+            cnt = delete(arr);
+            clear(arr);
+            answer += cnt;
 
-        int result = 1;
-        while (result > 0) {
-            result = delete(arr, 0, 0);
-            clear(board);
-
-            System.out.println(result);
-
-            answer += result;
+            if(cnt == 0) break;
         }
 
         return answer;
     }
 
-    static int delete(char[][] arr, int m, int n) {
-        int max = 0;
+    static int delete(char[][] arr) {
+        int result = 0;
 
-        for (int i = m; i < arr.length; i++) {
-            for (int j = n; j < arr[0].length; j++) {
-                if(arr[i][j] == '0') continue;
-
-                int cnt = blockCheck(arr, i, j);
-
-                if(cnt == 3) {
-                    delete(arr, i, j+1);
-                    delete(arr, i+1, j+1);
-                    delete(arr, i+1, j);
-
-                    if(arr[i][j] != '0') {
-                        arr[i][j] = '0';
-                        max++;
-                    }
-                    if(arr[i][j+1] != '0') {
-                        arr[i][j+1] = '0';
-                        max++;
-                    }
-                    if(arr[i+1][j+1] != '0') {
-                        arr[i+1][j+1] = '0';
-                        max++;
-                    }
-                    if(arr[i+1][j] != '0') {
-                        arr[i+1][j] = '0';
-                        max++;
-                    }
-                }
+        for(int i=0; i<arr.length; i++) {
+            for (int j = 0; j < arr[0].length; j++) {
+                if(visit[i][j]) continue;
+                result += blockCheck(arr, i, j, 0);
             }
         }
 
-        return max;
+        return result;
     }
 
-    static int blockCheck(char[][] arr, int i, int j) {
+    static int blockCheck(char[][] arr, int x, int y, int score) {
+        int result = 0;
 
-        char ck = arr[i][j];
-//        System.out.println(i + " :: " + j + " :: " + ck);
         int cnt = 0;
-        for (int p = 0; p < 3; p++) {
-            int a = i+x[p];
-            int b = j+y[p];
-            if(a < arr.length && b < arr[0].length) {
-                System.out.println(i + " :: " + j + " :: " + ck + " :: " + a + " :: " + b + " :: " + arr[a][b]);
-                if(ck == arr[a][b]) cnt++;
-                else return 0;
-            }
+        char icon = arr[x][y];
+
+        if(x+1 < arr.length && y+1 < arr[0].length) {
+            if (icon == arr[x][y + 1]) cnt++;
+            if (icon == arr[x + 1][y + 1]) cnt++;
+            if (icon == arr[x + 1][y]) cnt++;
         }
 
-        return cnt;
+        if(cnt == 3) {
+            result += blockCheck(arr, x, y+1, 1);
+            result += blockCheck(arr, x+1, y+1, 2);
+            result += blockCheck(arr, x+1, y, 3);
+
+            if(visit[x][y] == false) result++;
+            if(visit[x][y+1] == false) result++;
+            if(visit[x+1][y+1] == false) result++;
+            if(visit[x+1][y] == false) result++;
+
+            visit[x][y] = true;
+            visit[x][y+1] = true;
+            visit[x+1][y+1] = true;
+            visit[x+1][y] = true;
+        }
+
+        return result;
     }
 
-    static void clear(String[] board) {
+    static void clear(char[][] arr) {
+        for(int i=arr.length-1; i>=0; i--) {
+            for(int j=arr[0].length-1; j>=0; j--) {
+                if(visit[i][j]) lineClear(arr, i, j, arr.length);
 
+            }
+        }
+    }
+
+    static void lineClear(char[][] arr, int x, int y, int len) {
+        Queue<Character> q = new LinkedList<>();
+
+        arr[x][y] = '-';
+
+        for (int i = 1; i <= x; i++) {
+            if(visit[x-i][y] == false) {
+                q.add(arr[x-i][y]);
+                visit[x-i][y] = true;
+            }
+            arr[x - i][y] = '-';
+        }
+
+        int cnt = 0;
+        while (!q.isEmpty()) {
+            arr[x-cnt][y] = q.poll();
+            visit[x-cnt][y] = false;
+            cnt++;
+        }
     }
 }
