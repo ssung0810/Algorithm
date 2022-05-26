@@ -8,5 +8,6 @@ public class Main {
         System.out.println(LocalDateTime.now());
 
         String git_test = "";
+        String test2 = "";
     }
 }
