@@ -5,12 +5,8 @@ import java.time.LocalDateTime;
 public class Main {
 
     public static void main(String[] args) {
-        System.out.println(LocalDateTime.now());
+        String a = "2001";
 
-        String git_test = "";
-        String test2 = "";
-        String test3 = "";
+        System.out.println(a.substring(0, a.length()-1));
     }
-
-    String ff;
 }

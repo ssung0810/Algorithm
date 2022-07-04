@@ -3,11 +3,6 @@ package Programmers.Lv2;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
-
-import static com.sun.org.apache.xalan.internal.lib.ExsltStrings.split;
 
 /* 순위 검색
  * Date : 2021/09/26
